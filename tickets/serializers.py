@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Language, City, Movie, MoviesCityThrough, Ticket, TicketSeats
+from .models import Language, City, Movie, MoviesCityThrough
 
 class LanguageSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -43,11 +43,11 @@ class MovieSerialzer(serializers.Serializer):
     def create(self, validated_data):
         return Movie.objects.create(**validated_data)
     
-    def update(self, validated_data, instance):
+    def update(self, instance, validated_data):
         for key, value in validated_data.items():
             setattr(instance, key, value)
         instance.save()
-        return 
+        return instance
     
 
 
@@ -72,6 +72,6 @@ class MoviesCityThroughSerializer(serializers.Serializer):
         instance.save()
         return instance
 
-    
+
      
 
